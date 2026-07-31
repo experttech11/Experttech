@@ -1,0 +1,6 @@
+{
+  "name": "Expert Technologies",
+  "description": "Reliable Solar & CCTV Solutions for Homes, Shops, Offices, Schools, and Industries.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
