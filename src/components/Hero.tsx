@@ -1,6 +1,6 @@
 import React from 'react';
 import { Sun, ShieldCheck, ArrowRight, PhoneCall, CheckCircle2, Shield, Zap, Sparkles, Building2, Home, Store, School, Factory } from 'lucide-react';
-import { COMPANY_INFO } from '../data/servicesData';
+import { COMPANY_INFO, IMAGES } from '../data/servicesData';
 
 interface HeroProps {
   onOpenQuoteModal: (defaultService?: string) => void;
@@ -120,9 +120,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onContactClick }) 
                 {/* Solar Image Top Half */}
                 <div className="relative h-48 sm:h-56 overflow-hidden">
                   <img
-                    src="/src/assets/images/solar_installation_1785527524771.jpg"
+                    src={IMAGES.solar}
                     alt="Solar System Rooftop Installation by Expert Technologies"
-                    referrerPolicy="no-referrer"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent" />
@@ -135,9 +134,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onContactClick }) 
                 {/* CCTV Image Bottom Half */}
                 <div className="relative h-48 sm:h-56 overflow-hidden border-t border-slate-700/60">
                   <img
-                    src="/src/assets/images/cctv_security_1785527538569.jpg"
+                    src={IMAGES.cctv}
                     alt="CCTV Camera Surveillance System by Expert Technologies"
-                    referrerPolicy="no-referrer"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />

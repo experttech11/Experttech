@@ -1,4 +1,11 @@
 import { ServiceItem, WhyChooseUsItem, ProjectItem } from '../types';
+import solarImg from '../assets/images/solar_installation_1785527524771.jpg';
+import cctvImg from '../assets/images/cctv_security_1785527538569.jpg';
+
+export const IMAGES = {
+  solar: solarImg,
+  cctv: cctvImg,
+};
 
 export const COMPANY_INFO = {
   name: 'Expert Technologies',
@@ -176,7 +183,7 @@ export const PROJECTS_SHOWCASE: ProjectItem[] = [
     category: 'Solar System',
     specs: '20x 540W Mono PERC Panels + Solis 3-Phase Inverter',
     location: 'Greenwood Residency, Sector 4',
-    image: '/src/assets/images/solar_installation_1785527524771.jpg'
+    image: solarImg
   },
   {
     id: 'project-2',
@@ -185,7 +192,7 @@ export const PROJECTS_SHOWCASE: ProjectItem[] = [
     category: 'CCTV Security',
     specs: 'Hikvision 4K Dome/Bullet IP Cameras + 16-Channel NVR + Remote App',
     location: 'Horizon IT Hub, Commercial Zone',
-    image: '/src/assets/images/cctv_security_1785527538569.jpg'
+    image: cctvImg
   },
   {
     id: 'project-3',
@@ -194,7 +201,7 @@ export const PROJECTS_SHOWCASE: ProjectItem[] = [
     category: 'Solar + CCTV Combo',
     specs: '25kW Solar Power Plant + Full Perimeter AI Thermal Surveillance',
     location: 'Apex Precision Engineering, Industrial Phase II',
-    image: '/src/assets/images/solar_installation_1785527524771.jpg'
+    image: solarImg
   },
   {
     id: 'project-4',
@@ -203,6 +210,6 @@ export const PROJECTS_SHOWCASE: ProjectItem[] = [
     category: 'Solar + CCTV Combo',
     specs: '32-Camera HD Surveillance System + Solar Street Lighting',
     location: 'St. Mary High School Campus',
-    image: '/src/assets/images/cctv_security_1785527538569.jpg'
+    image: cctvImg
   }
 ];

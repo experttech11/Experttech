@@ -30,11 +30,11 @@ export const ProjectsShowcase: React.FC<ProjectsShowcaseProps> = ({ onOpenQuoteM
               key={project.id}
               className="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row"
             >
-              <div className="sm:w-1/2 h-48 sm:h-auto relative overflow-hidden bg-slate-800">
+              <div className="sm:w-1/2 min-h-[200px] h-48 sm:h-auto relative overflow-hidden bg-slate-800">
                 <img
                   src={project.image}
                   alt={project.title}
-                  referrerPolicy="no-referrer"
+                  loading="eager"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute top-3 left-3 px-2.5 py-1 rounded bg-slate-900/80 text-white text-[11px] font-bold uppercase tracking-wider backdrop-blur-sm">
