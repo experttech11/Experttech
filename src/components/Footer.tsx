@@ -49,7 +49,7 @@ export const Footer: React.FC = () => {
                 </a>
                 <a
                   id="footer-social-facebook"
-                  href="https://facebook.com"
+                  href={COMPANY_INFO.facebookUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-blue-400 hover:border-blue-500/50 flex items-center justify-center transition-colors"
@@ -59,7 +59,7 @@ export const Footer: React.FC = () => {
                 </a>
                 <a
                   id="footer-social-instagram"
-                  href="https://instagram.com"
+                  href={COMPANY_INFO.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-pink-400 hover:border-pink-500/50 flex items-center justify-center transition-colors"
@@ -69,7 +69,7 @@ export const Footer: React.FC = () => {
                 </a>
                 <a
                   id="footer-social-linkedin"
-                  href="https://linkedin.com"
+                  href={COMPANY_INFO.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-blue-400 hover:border-blue-500/50 flex items-center justify-center transition-colors"
@@ -79,7 +79,7 @@ export const Footer: React.FC = () => {
                 </a>
                 <a
                   id="footer-social-youtube"
-                  href="https://youtube.com"
+                  href={COMPANY_INFO.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-red-400 hover:border-red-500/50 flex items-center justify-center transition-colors"

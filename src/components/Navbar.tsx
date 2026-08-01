@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, ShieldCheck, Phone, Mail, Menu, X, MessageSquare, ArrowRight } from 'lucide-react';
+import { Sun, ShieldCheck, Phone, Mail, Menu, X, MessageSquare, ArrowRight, Facebook, Instagram } from 'lucide-react';
 import { COMPANY_INFO } from '../data/servicesData';
 
 interface NavbarProps {
@@ -82,6 +82,30 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             </a>
           </div>
           <div className="flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-1.5 border-r border-slate-800 pr-3">
+              <a
+                id="top-bar-facebook"
+                href={COMPANY_INFO.facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1 rounded text-slate-400 hover:text-blue-400 hover:bg-slate-800 transition-colors"
+                title="Facebook Page"
+                aria-label="Facebook Page"
+              >
+                <Facebook className="w-3.5 h-3.5" />
+              </a>
+              <a
+                id="top-bar-instagram"
+                href={COMPANY_INFO.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1 rounded text-slate-400 hover:text-pink-400 hover:bg-slate-800 transition-colors"
+                title="Instagram Page"
+                aria-label="Instagram Page"
+              >
+                <Instagram className="w-3.5 h-3.5" />
+              </a>
+            </div>
             <span className="hidden md:inline-block text-slate-400 text-xs">
               Mon - Sat: 9:00 AM - 7:00 PM
             </span>
@@ -219,6 +243,29 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                 <Phone className="w-4 h-4 text-blue-600" />
                 Call {COMPANY_INFO.phoneFormatted}
               </a>
+              
+              <div className="flex items-center gap-2 pt-2 border-t border-slate-100">
+                <a
+                  id="mobile-drawer-facebook"
+                  href={COMPANY_INFO.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-2 px-3 rounded-lg bg-blue-50 text-blue-700 text-xs font-semibold flex items-center justify-center gap-2 border border-blue-200"
+                >
+                  <Facebook className="w-4 h-4" />
+                  <span>Facebook</span>
+                </a>
+                <a
+                  id="mobile-drawer-instagram"
+                  href={COMPANY_INFO.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-2 px-3 rounded-lg bg-pink-50 text-pink-700 text-xs font-semibold flex items-center justify-center gap-2 border border-pink-200"
+                >
+                  <Instagram className="w-4 h-4" />
+                  <span>Instagram</span>
+                </a>
+              </div>
             </div>
           </div>
         )}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, MessageSquare, Clock, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageSquare, Clock, Send, CheckCircle2, AlertCircle, Facebook, Instagram } from 'lucide-react';
 import { COMPANY_INFO } from '../data/servicesData';
 import { QuoteFormData } from '../types';
 
@@ -152,6 +152,33 @@ export const ContactUs: React.FC<ContactUsProps> = ({ initialService, initialMes
                 <div className="flex items-center gap-3 text-xs text-slate-300 pt-2 border-t border-slate-800">
                   <Clock className="w-4 h-4 text-green-400 shrink-0" />
                   <span>{COMPANY_INFO.workingHours}</span>
+                </div>
+
+                {/* Social Pages Links */}
+                <div className="pt-3 border-t border-slate-800">
+                  <div className="text-xs text-slate-400 font-medium mb-2">Connect with Us Socially:</div>
+                  <div className="flex items-center gap-3">
+                    <a
+                      id="contact-social-facebook"
+                      href={COMPANY_INFO.facebookUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-blue-600/20 hover:bg-blue-600 border border-blue-500/30 text-blue-300 hover:text-white text-xs font-semibold transition-all group"
+                    >
+                      <Facebook className="w-4 h-4 text-blue-400 group-hover:text-white" />
+                      <span>Facebook Page</span>
+                    </a>
+                    <a
+                      id="contact-social-instagram"
+                      href={COMPANY_INFO.instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-pink-600/20 hover:bg-pink-600 border border-pink-500/30 text-pink-300 hover:text-white text-xs font-semibold transition-all group"
+                    >
+                      <Instagram className="w-4 h-4 text-pink-400 group-hover:text-white" />
+                      <span>Instagram Page</span>
+                    </a>
+                  </div>
                 </div>
 
               </div>
