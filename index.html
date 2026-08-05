@@ -25,12 +25,50 @@
     <meta name="twitter:description" content="Expert Technologies - Premier Solar Rooftop Power Systems &amp; High-Definition CCTV Security Solutions in Chh. Sambhajinagar." />
     <meta name="twitter:image" content="https://experttechnologies.in/og-image.jpg" />
 
-    <!-- Theme & Icons -->
-    <meta name="theme-color" content="#0f172a" />
+    <!-- PWA & Favicons -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- PWA Web App Meta Tags -->
+    <meta name="theme-color" content="#0B63F6" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Expert" />
+    <meta name="application-name" content="Expert Technologies" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('[PWA] ServiceWorker registered with scope:', registration.scope);
+
+              // Check for updates automatically
+              registration.onupdatefound = () => {
+                const installingWorker = registration.installing;
+                if (installingWorker) {
+                  installingWorker.onstatechange = () => {
+                    if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                      console.log('[PWA] New content available; automatically updated.');
+                    }
+                  };
+                }
+              };
+            })
+            .catch((error) => {
+              console.error('[PWA] ServiceWorker registration failed:', error);
+            });
+        });
+      }
+    </script>
   </body>
 </html>
 

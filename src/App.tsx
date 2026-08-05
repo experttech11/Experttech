@@ -19,6 +19,7 @@ import { QuoteModal } from './components/QuoteModal';
 import { CallbackModal } from './components/CallbackModal';
 import { AIChatAssistant } from './components/AIChatAssistant';
 import { FloatingActions } from './components/FloatingActions';
+import { PWAInstallPrompt } from './components/PWAInstallPrompt';
 
 export default function App() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
@@ -128,6 +129,9 @@ export default function App() {
 
       {/* Floating Action Bar (WhatsApp, Call, Callback) */}
       <FloatingActions onOpenCallbackModal={() => setIsCallbackModalOpen(true)} />
+
+      {/* PWA Install Prompt Banner */}
+      <PWAInstallPrompt />
     </div>
   );
 }
