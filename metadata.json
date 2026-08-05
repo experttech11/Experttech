@@ -1,6 +1,6 @@
 {
   "name": "Expert Technologies",
-  "description": "Reliable Solar & CCTV Solutions for Homes, Shops, Offices, Schools, and Industries.",
-  "requestFramePermissions": [],
+  "description": "Leading Solar Rooftop & 4K CCTV Security Systems Installer in Chhatrapati Sambhajinagar (Aurangabad). Certified PM Surya Ghar Subsidies & Tier-1 Equipment.",
+  "requestFramePermissions": ["geolocation"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

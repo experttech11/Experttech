@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sun, ShieldCheck, Phone, Mail, MapPin, Facebook, Linkedin, Instagram, Youtube, MessageSquare, ArrowUp } from 'lucide-react';
+import { ShieldCheck, Phone, Mail, MapPin, Facebook, Linkedin, Instagram, Youtube, MessageSquare, ArrowUp, Star } from 'lucide-react';
 import { COMPANY_INFO } from '../data/servicesData';
 
 export const Footer: React.FC = () => {
@@ -19,7 +19,7 @@ export const Footer: React.FC = () => {
           {/* Col 1: Company Name & Intro */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-700 to-green-500 text-white font-bold">
+              <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-700 to-emerald-500 text-white font-bold">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <span className="text-xl font-bold text-white tracking-tight">
@@ -28,10 +28,15 @@ export const Footer: React.FC = () => {
             </div>
 
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm">
-              Reliable Solar &amp; CCTV Solutions for Homes, Shops, Offices, Schools, and Industries. Clean solar energy harvesting and 24/7 HD security surveillance.
+              Certified Solar Rooftop & 4K CCTV Security Systems Installation in Chhatrapati Sambhajinagar (Aurangabad), Maharashtra. Authorized dealer for Hikvision, Dahua, CP Plus, Tata Power Solar & Waaree.
             </p>
 
-            {/* Social Media Links (Requested) */}
+            <div className="flex items-center gap-1.5 text-xs text-amber-400 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800 w-fit">
+              <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+              <span>Google Rated 4.9 / 5.0 (320+ Local Reviews)</span>
+            </div>
+
+            {/* Social Media Links */}
             <div className="pt-2">
               <div className="text-xs uppercase tracking-wider font-semibold text-slate-400 mb-3">
                 Follow &amp; Connect With Us
@@ -42,7 +47,7 @@ export const Footer: React.FC = () => {
                   href={`https://wa.me/${COMPANY_INFO.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-green-400 hover:border-green-500/50 flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-emerald-400 hover:border-emerald-500/50 flex items-center justify-center transition-colors"
                   aria-label="WhatsApp"
                 >
                   <MessageSquare className="w-4 h-4" />
@@ -93,31 +98,33 @@ export const Footer: React.FC = () => {
 
           {/* Col 2: Our Services Quick Links */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Our Key Services</h4>
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider">All Services</h4>
             <ul className="space-y-2 text-xs text-slate-400">
-              <li><a href="#services" className="hover:text-blue-400 transition-colors">Solar System Installation</a></li>
-              <li><a href="#services" className="hover:text-blue-400 transition-colors">On-Grid &amp; Off-Grid Solar Systems</a></li>
-              <li><a href="#services" className="hover:text-blue-400 transition-colors">CCTV Camera Installation</a></li>
-              <li><a href="#services" className="hover:text-blue-400 transition-colors">Security Surveillance Solutions</a></li>
-              <li><a href="#services" className="hover:text-blue-400 transition-colors">Maintenance &amp; Support (AMC)</a></li>
+              <li><a href="#services" className="hover:text-blue-400 transition-colors">CCTV Camera Installation (4K IP)</a></li>
+              <li><a href="#services" className="hover:text-blue-400 transition-colors">CCTV AMC & Repair Service</a></li>
+              <li><a href="#services" className="hover:text-blue-400 transition-colors">Solar Rooftop Power Plants</a></li>
+              <li><a href="#services" className="hover:text-blue-400 transition-colors">Networking & Structured LAN</a></li>
+              <li><a href="#services" className="hover:text-blue-400 transition-colors">Biometric Attendance & Access</a></li>
+              <li><a href="#services" className="hover:text-blue-400 transition-colors">Video Door Phone & Smart Locks</a></li>
+              <li><a href="#services" className="hover:text-blue-400 transition-colors">Combined Solar + CCTV AMC</a></li>
             </ul>
           </div>
 
-          {/* Col 3: Sectors We Serve */}
+          {/* Col 3: Key Localities */}
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Sectors Served</h4>
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Service Areas</h4>
             <ul className="space-y-2 text-xs text-slate-400">
-              <li>Residential Homes &amp; Villas</li>
-              <li>Shops &amp; Supermarkets</li>
-              <li>Offices &amp; IT Buildings</li>
-              <li>Schools &amp; Colleges</li>
-              <li>Factories &amp; Warehouses</li>
+              <li><a href="#location" className="hover:text-blue-400 transition-colors">Garkheda Parisar (Head Office)</a></li>
+              <li><a href="#location" className="hover:text-blue-400 transition-colors">CIDCO N-1 to N-12</a></li>
+              <li><a href="#location" className="hover:text-blue-400 transition-colors">Waluj MIDC Industrial Area</a></li>
+              <li><a href="#location" className="hover:text-blue-400 transition-colors">Shendra DMIC Zone</a></li>
+              <li><a href="#location" className="hover:text-blue-400 transition-colors">Beed Bypass & Jalna Road</a></li>
             </ul>
           </div>
 
           {/* Col 4: Contact Summary */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Contact Us</h4>
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Contact Details (NAP)</h4>
             <div className="space-y-2 text-xs text-slate-400">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
@@ -130,7 +137,7 @@ export const Footer: React.FC = () => {
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-green-400 shrink-0" />
+                <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
                 <a href={`mailto:${COMPANY_INFO.email}`} className="hover:text-white transition-colors">
                   {COMPANY_INFO.email}
                 </a>
@@ -140,16 +147,15 @@ export const Footer: React.FC = () => {
 
         </div>
 
-        {/* Bottom Bar: Copyright & Back To Top */}
+        {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
-            © {currentYear} <span className="text-slate-300 font-semibold">{COMPANY_INFO.name}</span>. All rights reserved.
+            © {currentYear} <span className="text-slate-300 font-semibold">{COMPANY_INFO.name}</span>. All rights reserved. Chhatrapati Sambhajinagar, Maharashtra.
           </div>
 
           <div className="flex items-center gap-4">
-            <span className="hidden sm:inline-block text-slate-600">
-              Quality Solar &amp; CCTV Solutions
-            </span>
+            <a href="/sitemap.xml" target="_blank" className="hover:text-slate-300">Sitemap</a>
+            <a href="/robots.txt" target="_blank" className="hover:text-slate-300">Robots.txt</a>
             <button
               id="footer-back-to-top"
               onClick={scrollToTop}

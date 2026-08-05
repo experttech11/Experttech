@@ -2,19 +2,28 @@ import React, { useState } from 'react';
 import { SEO } from './components/SEO';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { BrandsSection } from './components/BrandsSection';
 import { AboutUs } from './components/AboutUs';
 import { Services } from './components/Services';
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { SystemEstimator } from './components/SystemEstimator';
 import { ProjectsShowcase } from './components/ProjectsShowcase';
+import { InstallationProcessSection } from './components/InstallationProcessSection';
+import { TestimonialsSection } from './components/TestimonialsSection';
+import { BlogSection } from './components/BlogSection';
+import { ServiceAreasSection } from './components/ServiceAreasSection';
+import { FAQSection } from './components/FAQSection';
 import { ContactUs } from './components/ContactUs';
 import { Footer } from './components/Footer';
 import { QuoteModal } from './components/QuoteModal';
+import { CallbackModal } from './components/CallbackModal';
+import { AIChatAssistant } from './components/AIChatAssistant';
 import { FloatingActions } from './components/FloatingActions';
 
 export default function App() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
-  const [modalDefaultService, setModalDefaultService] = useState('Solar System Installation');
+  const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
+  const [modalDefaultService, setModalDefaultService] = useState('Solar Rooftop System');
   const [modalCustomMessage, setModalCustomMessage] = useState('');
 
   const handleOpenQuoteModal = (serviceTitle?: string) => {
@@ -41,7 +50,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800 antialiased selection:bg-blue-500 selection:text-white">
-      {/* Dynamic SEO and Social Media Meta Tags */}
+      {/* Dynamic SEO and Social Media Meta Tags with Schema Markup */}
       <SEO />
 
       {/* Sticky Header Navigation */}
@@ -49,40 +58,58 @@ export default function App() {
 
       {/* Main Page Sections */}
       <main>
-        {/* Section 1: Hero */}
+        {/* Hero Section */}
         <Hero
           onOpenQuoteModal={handleOpenQuoteModal}
           onContactClick={handleScrollToContact}
         />
 
-        {/* Section 2: About Us */}
+        {/* Brand Equipment Partners */}
+        <BrandsSection />
+
+        {/* About Company */}
         <AboutUs onOpenQuoteModal={handleOpenQuoteModal} />
 
-        {/* Section 3: Our Services */}
+        {/* Core Services Grid with Specs Modal */}
         <Services onOpenQuoteModal={handleOpenQuoteModal} />
 
-        {/* Section 4: Why Choose Us */}
-        <WhyChooseUs onOpenQuoteModal={handleOpenQuoteModal} />
-
-        {/* Interactive Solar & CCTV Estimator Widget */}
+        {/* Solar & CCTV Cost Estimator */}
         <SystemEstimator
           onOpenQuoteModalWithCustomData={handleOpenQuoteModalWithCustomData}
         />
 
-        {/* Project Showcase / Case Studies */}
+        {/* Standard Installation Process Workflow */}
+        <InstallationProcessSection onOpenQuoteModal={handleOpenQuoteModal} />
+
+        {/* Verified Local Projects Showcase */}
         <ProjectsShowcase onOpenQuoteModal={handleOpenQuoteModal} />
 
-        {/* Section 5: Contact Us */}
+        {/* Why Choose Expert Technologies */}
+        <WhyChooseUs onOpenQuoteModal={handleOpenQuoteModal} />
+
+        {/* Customer Reviews & Google Rating */}
+        <TestimonialsSection onOpenQuoteModal={handleOpenQuoteModal} />
+
+        {/* SEO Blog & Solar/CCTV Guides */}
+        <BlogSection onOpenQuoteModal={handleOpenQuoteModal} />
+
+        {/* Local Service Areas & Google Maps NAP */}
+        <ServiceAreasSection />
+
+        {/* FAQ Accordion Section */}
+        <FAQSection />
+
+        {/* Contact Form & Lead Generation Section */}
         <ContactUs
           initialService={modalDefaultService}
           initialMessage={modalCustomMessage}
         />
       </main>
 
-      {/* Section 6: Footer */}
+      {/* Footer */}
       <Footer />
 
-      {/* Quote Modal Popup */}
+      {/* Quote Request Modal */}
       <QuoteModal
         isOpen={isQuoteModalOpen}
         onClose={() => setIsQuoteModalOpen(false)}
@@ -90,8 +117,17 @@ export default function App() {
         customMessage={modalCustomMessage}
       />
 
-      {/* Floating Action Buttons */}
-      <FloatingActions />
+      {/* Instant 15-Min Callback Request Modal */}
+      <CallbackModal
+        isOpen={isCallbackModalOpen}
+        onClose={() => setIsCallbackModalOpen(false)}
+      />
+
+      {/* AI Lead Qualification Chat Advisor */}
+      <AIChatAssistant onOpenQuoteModal={handleOpenQuoteModal} />
+
+      {/* Floating Action Bar (WhatsApp, Call, Callback) */}
+      <FloatingActions onOpenCallbackModal={() => setIsCallbackModalOpen(true)} />
     </div>
   );
 }

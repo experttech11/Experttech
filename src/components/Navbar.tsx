@@ -15,7 +15,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = ['hero', 'about', 'services', 'why-us', 'estimator', 'contact'];
+      const sections = ['hero', 'about', 'services', 'why-us', 'estimator', 'projects', 'testimonials', 'blog', 'location', 'faq', 'contact'];
       const scrollPosition = window.scrollY + 120;
 
       for (const section of sections) {
@@ -37,11 +37,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
   const navLinks = [
     { name: 'Home', href: '#hero', id: 'hero' },
-    { name: 'About Us', href: '#about', id: 'about' },
-    { name: 'Our Services', href: '#services', id: 'services' },
-    { name: 'Why Choose Us', href: '#why-us', id: 'why-us' },
-    { name: 'Instant Estimator', href: '#estimator', id: 'estimator' },
-    { name: 'Contact Us', href: '#contact', id: 'contact' },
+    { name: 'Services', href: '#services', id: 'services' },
+    { name: 'Estimator', href: '#estimator', id: 'estimator' },
+    { name: 'Projects', href: '#projects', id: 'projects' },
+    { name: 'Reviews', href: '#testimonials', id: 'testimonials' },
+    { name: 'Blog', href: '#blog', id: 'blog' },
+    { name: 'Service Areas', href: '#location', id: 'location' },
+    { name: 'FAQ', href: '#faq', id: 'faq' },
+    { name: 'Contact', href: '#contact', id: 'contact' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -75,11 +78,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             <a 
               id="top-bar-email"
               href={`mailto:${COMPANY_INFO.email}`} 
-              className="hidden sm:flex items-center gap-1.5 hover:text-green-400 transition-colors"
+              className="hidden sm:flex items-center gap-1.5 hover:text-emerald-400 transition-colors"
             >
-              <Mail className="w-3.5 h-3.5 text-green-400" />
+              <Mail className="w-3.5 h-3.5 text-emerald-400" />
               <span>{COMPANY_INFO.email}</span>
             </a>
+            <span className="hidden xl:inline-block text-slate-400 text-xs">
+              📍 Garkheda Parisar, Chhatrapati Sambhajinagar
+            </span>
           </div>
           <div className="flex items-center gap-3">
             <div className="hidden lg:flex items-center gap-1.5 border-r border-slate-800 pr-3">
@@ -106,18 +112,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                 <Instagram className="w-3.5 h-3.5" />
               </a>
             </div>
-            <span className="hidden md:inline-block text-slate-400 text-xs">
-              Mon - Sat: 9:00 AM - 7:00 PM
-            </span>
             <a
               id="top-bar-whatsapp"
-              href={`https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent('Hello Expert Technologies, I would like to inquire about Solar & CCTV solutions.')}`}
+              href={`https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent('Hi Expert Technologies, I would like to inquire about Solar & CCTV solutions.')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2.5 py-1 rounded bg-green-600 hover:bg-green-700 text-white font-medium text-xs transition-colors"
+              className="flex items-center gap-1 px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition-colors"
             >
               <MessageSquare className="w-3.5 h-3.5" />
-              <span>WhatsApp Chat</span>
+              <span>WhatsApp Us</span>
             </a>
           </div>
         </div>
@@ -127,8 +130,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
       <nav 
         className={`w-full bg-white transition-all duration-300 ${
           isScrolled 
-            ? 'shadow-lg border-b border-slate-200/80 py-3' 
-            : 'border-b border-slate-100 py-4'
+            ? 'shadow-lg border-b border-slate-200/80 py-2.5' 
+            : 'border-b border-slate-100 py-3.5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -139,7 +142,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             onClick={(e) => handleNavClick(e, '#hero')}
             className="flex items-center gap-2.5 group cursor-pointer"
           >
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 via-blue-600 to-green-500 text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 via-blue-600 to-emerald-500 text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
               <Sun className="w-5 h-5 text-amber-300 absolute -top-1 -right-1 animate-pulse" />
               <ShieldCheck className="w-6 h-6 text-white" />
             </div>
@@ -147,24 +150,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               <span className="text-xl font-bold tracking-tight text-slate-900 leading-tight flex items-center gap-1">
                 Expert <span className="text-blue-600">Technologies</span>
               </span>
-              <span className="text-[10px] uppercase font-semibold text-green-600 tracking-wider">
-                Solar & CCTV Solutions
+              <span className="text-[10px] uppercase font-bold text-emerald-600 tracking-wider">
+                Solar & CCTV • Chh. Sambhajinagar
               </span>
             </div>
           </a>
 
           {/* Desktop Nav Links */}
-          <div className="hidden lg:flex items-center gap-1 xl:gap-2">
+          <div className="hidden xl:flex items-center gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.id}
                 id={`nav-link-${link.id}`}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   activeSection === link.id
                     ? 'text-blue-600 bg-blue-50/80 font-semibold'
-                    : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
+                    : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
                 }`}
               >
                 {link.name}
@@ -177,21 +180,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             <button
               id="header-get-quote-btn"
               onClick={() => onOpenQuoteModal()}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm font-semibold shadow-md shadow-blue-600/25 hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-xs font-bold shadow-md shadow-blue-600/25 hover:shadow-lg transition-all transform hover:-translate-y-0.5"
             >
-              <span>Get a Quote</span>
+              <span>Free Site Survey</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
 
           {/* Mobile Hamburger Toggle */}
-          <div className="flex lg:hidden items-center gap-2">
+          <div className="flex xl:hidden items-center gap-2">
             <button
               id="header-get-quote-mobile-sm"
               onClick={() => onOpenQuoteModal()}
-              className="sm:hidden px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold"
+              className="sm:hidden px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-bold"
             >
-              Get Quote
+              Free Survey
             </button>
             <button
               id="mobile-menu-toggle-btn"
@@ -206,15 +209,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
         {/* Mobile Menu Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3 animate-fadeIn">
-            <div className="flex flex-col space-y-1">
+          <div className="xl:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3 animate-fadeIn">
+            <div className="grid grid-cols-2 gap-1">
               {navLinks.map((link) => (
                 <a
                   key={link.id}
                   id={`mobile-nav-link-${link.id}`}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`px-3 py-2.5 rounded-lg text-base font-medium transition-colors ${
+                  className={`px-3 py-2 rounded-lg text-xs font-bold transition-colors ${
                     activeSection === link.id
                       ? 'text-blue-600 bg-blue-50 font-semibold'
                       : 'text-slate-700 hover:bg-slate-50'
@@ -231,41 +234,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                   setMobileMenuOpen(false);
                   onOpenQuoteModal();
                 }}
-                className="w-full py-3 rounded-xl bg-blue-600 text-white text-center font-semibold text-sm shadow-md"
+                className="w-full py-2.5 rounded-xl bg-blue-600 text-white text-center font-bold text-xs shadow-md"
               >
-                Get a Free Quote
+                Request Free Site Survey
               </button>
               <a
                 id="mobile-drawer-contact-btn"
                 href={`tel:${COMPANY_INFO.phone}`}
-                className="w-full py-2.5 rounded-xl border border-slate-300 text-slate-700 text-center font-medium text-sm flex items-center justify-center gap-2"
+                className="w-full py-2 rounded-xl border border-slate-300 text-slate-700 text-center font-semibold text-xs flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4 text-blue-600" />
                 Call {COMPANY_INFO.phoneFormatted}
               </a>
-              
-              <div className="flex items-center gap-2 pt-2 border-t border-slate-100">
-                <a
-                  id="mobile-drawer-facebook"
-                  href={COMPANY_INFO.facebookUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 py-2 px-3 rounded-lg bg-blue-50 text-blue-700 text-xs font-semibold flex items-center justify-center gap-2 border border-blue-200"
-                >
-                  <Facebook className="w-4 h-4" />
-                  <span>Facebook</span>
-                </a>
-                <a
-                  id="mobile-drawer-instagram"
-                  href={COMPANY_INFO.instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 py-2 px-3 rounded-lg bg-pink-50 text-pink-700 text-xs font-semibold flex items-center justify-center gap-2 border border-pink-200"
-                >
-                  <Instagram className="w-4 h-4" />
-                  <span>Instagram</span>
-                </a>
-              </div>
             </div>
           </div>
         )}
