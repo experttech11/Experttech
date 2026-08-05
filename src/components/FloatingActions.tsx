@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageSquare, Phone, Clock, ArrowUp, Bot } from 'lucide-react';
+import { MessageSquare, Phone, Clock, ArrowUp } from 'lucide-react';
 import { COMPANY_INFO } from '../data/servicesData';
 import { trackConversion } from '../utils/analytics';
 
@@ -11,8 +11,6 @@ interface FloatingActionsProps {
 
 export const FloatingActions: React.FC<FloatingActionsProps> = ({
   onOpenCallbackModal,
-  onToggleAIChat,
-  isAIChatOpen,
 }) => {
   const handleWhatsAppClick = () => {
     trackConversion.clickWhatsApp('floating_action_btn');
@@ -28,25 +26,6 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
 
   return (
     <div className="fixed bottom-3 right-2.5 sm:bottom-6 sm:right-6 z-40 flex flex-col gap-2 items-end pointer-events-auto">
-      {/* AI Assistant Button */}
-      {onToggleAIChat && (
-        <button
-          onClick={onToggleAIChat}
-          className={`h-10 px-3 rounded-full text-white shadow-2xl flex items-center justify-center gap-2 transition-all duration-300 hover:scale-105 active:scale-95 border border-slate-700/80 cursor-pointer ${
-            isAIChatOpen ? 'bg-blue-600 border-blue-400 ring-2 ring-blue-400/30' : 'bg-slate-900 hover:bg-slate-800'
-          }`}
-          title="Open AI Solar & CCTV Advisor"
-          aria-label="Open AI Solar & CCTV Advisor"
-        >
-          <div className="relative flex items-center justify-center shrink-0">
-            <Bot className="w-4 h-4 text-blue-400" />
-            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-500" />
-          </div>
-          <span className="text-xs font-bold whitespace-nowrap">AI Advisor</span>
-        </button>
-      )}
-
       {/* Callback Button (Desktop) */}
       {onOpenCallbackModal && (
         <button

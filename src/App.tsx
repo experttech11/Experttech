@@ -17,14 +17,12 @@ import { ContactUs } from './components/ContactUs';
 import { Footer } from './components/Footer';
 import { QuoteModal } from './components/QuoteModal';
 import { CallbackModal } from './components/CallbackModal';
-import { AIChatAssistant } from './components/AIChatAssistant';
 import { FloatingActions } from './components/FloatingActions';
 import { PWAInstallPrompt } from './components/PWAInstallPrompt';
 
 export default function App() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
-  const [isAIChatOpen, setIsAIChatOpen] = useState(false);
   const [modalDefaultService, setModalDefaultService] = useState('Solar Rooftop System');
   const [modalCustomMessage, setModalCustomMessage] = useState('');
 
@@ -125,18 +123,9 @@ export default function App() {
         onClose={() => setIsCallbackModalOpen(false)}
       />
 
-      {/* AI Lead Qualification Chat Advisor */}
-      <AIChatAssistant
-        isOpen={isAIChatOpen}
-        onClose={() => setIsAIChatOpen(false)}
-        onOpenQuoteModal={handleOpenQuoteModal}
-      />
-
-      {/* Floating Action Bar (WhatsApp, Call, Callback, AI Advisor) */}
+      {/* Floating Action Bar (WhatsApp, Call, Callback) */}
       <FloatingActions
         onOpenCallbackModal={() => setIsCallbackModalOpen(true)}
-        onToggleAIChat={() => setIsAIChatOpen((prev) => !prev)}
-        isAIChatOpen={isAIChatOpen}
       />
 
       {/* PWA Install Prompt Banner */}

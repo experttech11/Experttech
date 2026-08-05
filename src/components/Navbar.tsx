@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, ShieldCheck, Phone, Mail, Menu, X, MessageSquare, ArrowRight, Facebook, Instagram } from 'lucide-react';
+import { Sun, ShieldCheck, Phone, Mail, Menu, X, Facebook, Instagram } from 'lucide-react';
 import { COMPANY_INFO } from '../data/servicesData';
 
 interface NavbarProps {
@@ -112,16 +112,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                 <Instagram className="w-3.5 h-3.5" />
               </a>
             </div>
-            <a
-              id="top-bar-whatsapp"
-              href={`https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent('Hi Expert Technologies, I would like to inquire about Solar & CCTV solutions.')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition-colors"
-            >
-              <MessageSquare className="w-3.5 h-3.5" />
-              <span>WhatsApp Us</span>
-            </a>
           </div>
         </div>
       </div>
@@ -175,27 +165,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             ))}
           </div>
 
-          {/* Desktop Action Buttons */}
-          <div className="hidden sm:flex items-center gap-3">
-            <button
-              id="header-get-quote-btn"
-              onClick={() => onOpenQuoteModal()}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-xs font-bold shadow-md shadow-blue-600/25 hover:shadow-lg transition-all transform hover:-translate-y-0.5"
-            >
-              <span>Free Site Survey</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-
           {/* Mobile Hamburger Toggle */}
           <div className="flex xl:hidden items-center gap-2">
-            <button
-              id="header-get-quote-mobile-sm"
-              onClick={() => onOpenQuoteModal()}
-              className="sm:hidden px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-bold"
-            >
-              Free Survey
-            </button>
             <button
               id="mobile-menu-toggle-btn"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -228,16 +199,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               ))}
             </div>
             <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
-              <button
-                id="mobile-drawer-quote-btn"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenQuoteModal();
-                }}
-                className="w-full py-2.5 rounded-xl bg-blue-600 text-white text-center font-bold text-xs shadow-md"
-              >
-                Request Free Site Survey
-              </button>
               <a
                 id="mobile-drawer-contact-btn"
                 href={`tel:${COMPANY_INFO.phone}`}
