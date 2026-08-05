@@ -37,15 +37,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onContactClick }) 
 
             {/* Main Heading & Subheading (Exactly as requested) */}
             <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
+              <h1 className="text-2xl min-[360px]:text-3xl min-[420px]:text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] break-words">
                 Expert <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-200 to-green-400">Technologies</span>
               </h1>
               
-              <p className="text-xl sm:text-2xl font-medium text-slate-200 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              <p className="text-lg sm:text-2xl font-medium text-slate-200 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                 Reliable Solar &amp; CCTV Solutions for Homes and Businesses.
               </p>
 
-              <p className="text-sm sm:text-base text-slate-400 leading-normal max-w-xl mx-auto lg:mx-0">
+              <p className="text-xs sm:text-base text-slate-400 leading-normal max-w-xl mx-auto lg:mx-0">
                 Reduce electricity bills up to 80% with high-performance solar power plants and protect your premises 24/7 with smart 4K CCTV security monitoring.
               </p>
             </div>
@@ -72,22 +72,22 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onContactClick }) 
             </div>
 
             {/* Buttons (Exactly requested: Get a Quote and Contact Us) */}
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 relative z-20 pr-14 sm:pr-0">
               <button
                 id="hero-get-quote-btn"
                 onClick={() => onOpenQuoteModal()}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-gradient-to-r from-green-500 via-green-600 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold text-base shadow-lg shadow-green-600/30 hover:shadow-xl hover:shadow-green-600/40 transition-all transform hover:-translate-y-0.5 cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-gradient-to-r from-green-500 via-green-600 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold text-base shadow-lg shadow-green-600/30 hover:shadow-xl hover:shadow-green-600/40 transition-all transform hover:-translate-y-0.5 cursor-pointer z-10"
               >
                 <span>Get a Quote</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5 shrink-0" />
               </button>
 
               <button
                 id="hero-contact-us-btn"
                 onClick={onContactClick}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-slate-800/90 hover:bg-slate-800 text-white font-semibold text-base border border-slate-700 hover:border-blue-500/50 transition-all cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-slate-800/90 hover:bg-slate-800 text-white font-semibold text-base border border-slate-700 hover:border-blue-500/50 transition-all cursor-pointer"
               >
-                <PhoneCall className="w-5 h-5 text-blue-400" />
+                <PhoneCall className="w-5 h-5 text-blue-400 shrink-0" />
                 <span>Contact Us</span>
               </button>
             </div>

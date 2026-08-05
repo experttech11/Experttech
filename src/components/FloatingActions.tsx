@@ -21,7 +21,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenCallback
   };
 
   return (
-    <div className="fixed bottom-5 right-4 sm:right-6 z-40 flex flex-col gap-2.5 items-end">
+    <div className="fixed bottom-4 right-3 sm:bottom-6 sm:right-6 z-30 flex flex-col gap-2.5 items-end pointer-events-auto">
       {/* Callback Button */}
       {onOpenCallbackModal && (
         <button
