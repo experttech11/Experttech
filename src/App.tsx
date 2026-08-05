@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SEO } from './components/SEO';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AboutUs } from './components/AboutUs';
@@ -40,6 +41,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800 antialiased selection:bg-blue-500 selection:text-white">
+      {/* Dynamic SEO and Social Media Meta Tags */}
+      <SEO />
+
       {/* Sticky Header Navigation */}
       <Navbar onOpenQuoteModal={handleOpenQuoteModal} />
 
