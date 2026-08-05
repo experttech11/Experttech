@@ -22,15 +22,32 @@ export const ContactUs: React.FC<ContactUsProps> = ({ initialService, initialMes
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    // Simulate submission
-    setTimeout(() => {
-      setLoading(false);
+    const scriptURL = "https://script.google.com/macros/s/AKfycbx1uf78YnraMK2q2OqoYnJyrAd0jA6MYfvnxXL9VyVa_vQxa76H4OQ7nExcuMBP3KLWIg/exec";
+
+    try {
+      await fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          phoneNumber: formData.phone,
+          propertyType: formData.propertyType,
+          service: formData.serviceRequired,
+          notes: formData.city ? `City: ${formData.city}. ${formData.message}` : formData.message
+        }),
+        headers: { "Content-Type": "application/json" }
+      });
+      alert("Inquiry submitted successfully!");
       setSubmitted(true);
-    }, 800);
+    } catch (error) {
+      alert("Something went wrong, please try WhatsApp option.");
+      console.error("Submission error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleReset = () => {

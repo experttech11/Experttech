@@ -31,8 +31,14 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleSubmit = async (e?: React.FormEvent) => {
+  const handleSubmit = async (e?: React.SyntheticEvent) => {
     if (e) e.preventDefault();
+
+    if (!fullName.trim() || !phone.trim()) {
+      alert("Please enter your full name and phone number.");
+      return;
+    }
+
     setLoading(true);
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbx1uf78YnraMK2q2OqoYnJyrAd0jA6MYfvnxXL9VyVa_vQxa76H4OQ7nExcuMBP3KLWIg/exec";
@@ -40,7 +46,6 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
     try {
       await fetch(scriptURL, {
         method: "POST",
-        mode: "no-cors",
         body: JSON.stringify({
           fullName,
           phoneNumber: phone,
@@ -53,8 +58,8 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
       alert("Inquiry submitted successfully!");
       setSubmitted(true);
     } catch (error) {
-      console.error("Submission error:", error);
       alert("Something went wrong, please try WhatsApp option.");
+      console.error("Submission error:", error);
     } finally {
       setLoading(false);
     }
@@ -201,6 +206,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
               <div className="pt-2 flex flex-col gap-2">
                 <button
                   type="submit"
+                  onClick={handleSubmit}
                   disabled={loading}
                   className="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
