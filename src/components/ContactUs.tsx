@@ -29,11 +29,7 @@ export const ContactUs: React.FC<ContactUsProps> = ({ initialService, initialMes
     const scriptURL = "https://script.google.com/macros/s/AKfycbx1uf78YnraMK2q2OqoYnJyrAd0jA6MYfvnxXL9VyVa_vQxa76H4OQ7nExcuMBP3KLWIg/exec";
 
     try {
-      if (typeof navigator !== 'undefined' && !navigator.onLine) {
-        throw new Error('OFFLINE');
-      }
-
-      const response = await fetch(scriptURL, {
+      await fetch(scriptURL, {
         method: "POST",
         body: JSON.stringify({
           fullName: formData.fullName,
@@ -45,25 +41,22 @@ export const ContactUs: React.FC<ContactUsProps> = ({ initialService, initialMes
         headers: { "Content-Type": "application/json" }
       });
 
-      if (!response.ok && response.status !== 0) {
-        throw new Error(`HTTP_ERROR_${response.status}`);
-      }
-
       alert("Inquiry submitted successfully!");
       setSubmitted(true);
-    } catch (error: any) {
+    } catch (error) {
       console.error("Submission error:", error);
-
-      if (error?.message === 'OFFLINE' || (typeof navigator !== 'undefined' && !navigator.onLine)) {
-        alert("Network Error: You appear to be offline. Please check your internet connection and try again, or use the WhatsApp option.");
-      } else {
-        alert("Submission Error: Unable to send inquiry due to a network or server issue. Please try again or connect via WhatsApp.");
-      }
-
-      // Reset form state on failure as requested
-      handleReset();
+      alert("Failed to submit inquiry. Please try our WhatsApp button instead.");
     } finally {
       setLoading(false);
+      setFormData({
+        fullName: '',
+        phone: '',
+        email: '',
+        propertyType: 'Home',
+        serviceRequired: 'Solar System Installation',
+        city: '',
+        message: '',
+      });
     }
   };
 
