@@ -31,14 +31,33 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
+    const scriptURL = "https://script.google.com/macros/s/AKfycbx1uf78YnraMK2q2OqoYnJyrAd0jA6MYfvnxXL9VyVa_vQxa76H4OQ7nExcuMBP3KLWIg/exec";
+
+    try {
+      await fetch(scriptURL, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify({
+          fullName,
+          phoneNumber: phone,
+          propertyType,
+          service: service,
+          notes: message
+        }),
+        headers: { "Content-Type": "application/json" }
+      });
+      alert("Inquiry submitted successfully!");
       setSubmitted(true);
-    }, 700);
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("Something went wrong, please try WhatsApp option.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleWhatsAppRedirect = () => {
