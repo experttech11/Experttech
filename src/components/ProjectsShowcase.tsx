@@ -1,6 +1,7 @@
 import React from 'react';
 import { PROJECTS_SHOWCASE } from '../data/servicesData';
 import { MapPin, Shield, Sun, Building2, CheckCircle2 } from 'lucide-react';
+import { OptimizedImage } from './OptimizedImage';
 
 interface ProjectsShowcaseProps {
   onOpenQuoteModal: (defaultService?: string) => void;
@@ -31,13 +32,15 @@ export const ProjectsShowcase: React.FC<ProjectsShowcaseProps> = ({ onOpenQuoteM
               className="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row"
             >
               <div className="sm:w-1/2 min-h-[200px] h-48 sm:h-auto relative overflow-hidden bg-slate-800">
-                <img
+                <OptimizedImage
                   src={project.image}
                   alt={project.title}
-                  loading="eager"
+                  preset="gallery"
+                  loading="lazy"
                   className="w-full h-full object-cover"
+                  wrapperClassName="w-full h-full"
                 />
-                <div className="absolute top-3 left-3 px-2.5 py-1 rounded bg-slate-900/80 text-white text-[11px] font-bold uppercase tracking-wider backdrop-blur-sm">
+                <div className="absolute top-3 left-3 px-2.5 py-1 rounded bg-slate-900/80 text-white text-[11px] font-bold uppercase tracking-wider backdrop-blur-sm z-10">
                   {project.clientType} Project
                 </div>
               </div>

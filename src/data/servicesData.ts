@@ -11,9 +11,17 @@ import {
 import solarImg from '../assets/images/solar_installation_1785527524771.jpg';
 import cctvImg from '../assets/images/cctv_security_1785527538569.jpg';
 
+const SOLAR_OPTIMIZED_URL = 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&q=80';
+const CCTV_OPTIMIZED_URL = 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80';
+const INDUSTRIAL_SOLAR_URL = 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&q=80';
+const CAMPUS_CCTV_URL = 'https://images.unsplash.com/photo-1580894732413-a70d10202519?auto=format&fit=crop&q=80';
+const COMMERCIAL_SOLAR_URL = 'https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&q=80';
+
 export const IMAGES = {
-  solar: solarImg,
-  cctv: cctvImg,
+  solar: SOLAR_OPTIMIZED_URL || solarImg,
+  cctv: CCTV_OPTIMIZED_URL || cctvImg,
+  solarLocal: solarImg,
+  cctvLocal: cctvImg,
 };
 
 export const COMPANY_INFO = {
@@ -628,7 +636,7 @@ export const PROJECTS_SHOWCASE: ProjectItem[] = [
     category: 'Solar System',
     specs: '20x Waaree 540W Mono PERC Panels + Solis 3-Phase Inverter + Net Metering',
     location: 'Beed Bypass Road, Chhatrapati Sambhajinagar',
-    image: solarImg,
+    image: SOLAR_OPTIMIZED_URL,
     completionYear: '2026'
   },
   {
@@ -638,7 +646,7 @@ export const PROJECTS_SHOWCASE: ProjectItem[] = [
     category: 'CCTV Security',
     specs: 'Hikvision 4K Dome/Bullet IP Cameras + 16-Channel NVR + Smart App',
     location: 'CIDCO Town Centre, Chhatrapati Sambhajinagar',
-    image: cctvImg,
+    image: CCTV_OPTIMIZED_URL,
     completionYear: '2026'
   },
   {
@@ -648,7 +656,7 @@ export const PROJECTS_SHOWCASE: ProjectItem[] = [
     category: 'Solar + CCTV Combo',
     specs: '25kW Heavy Solar Plant + Perimeter AI Thermal CCTV + Concealed Wiring',
     location: 'Waluj MIDC Industrial Area, Chhatrapati Sambhajinagar',
-    image: solarImg,
+    image: INDUSTRIAL_SOLAR_URL,
     completionYear: '2025'
   },
   {
@@ -658,7 +666,7 @@ export const PROJECTS_SHOWCASE: ProjectItem[] = [
     category: 'Networking & Biometric',
     specs: '32-Camera HD CCTV Network + eSSL Face ID Biometric Door System',
     location: 'Paithan Road, Chhatrapati Sambhajinagar',
-    image: cctvImg,
+    image: CAMPUS_CCTV_URL,
     completionYear: '2025'
   },
   {
@@ -668,7 +676,7 @@ export const PROJECTS_SHOWCASE: ProjectItem[] = [
     category: 'Solar + CCTV Combo',
     specs: '5kW Rooftop Power Plant + 8-Cam 24/7 ColorVu Night Vision CCTV',
     location: 'Jalna Road Market, Chhatrapati Sambhajinagar',
-    image: solarImg,
+    image: COMMERCIAL_SOLAR_URL,
     completionYear: '2026'
   }
 ];

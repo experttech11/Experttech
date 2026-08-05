@@ -1,6 +1,7 @@
 import React from 'react';
 import { Sun, ShieldCheck, ArrowRight, PhoneCall, CheckCircle2, Shield, Zap, Sparkles, Building2, Home, Store, School, Factory } from 'lucide-react';
 import { COMPANY_INFO, IMAGES } from '../data/servicesData';
+import { OptimizedImage } from './OptimizedImage';
 
 interface HeroProps {
   onOpenQuoteModal: (defaultService?: string) => void;
@@ -51,7 +52,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onContactClick }) 
             </div>
 
             {/* Target Audience Tags */}
-            <div className="pt-2">
+            <div className="pt-2 max-w-[calc(100%-3.25rem)] sm:max-w-none mx-auto lg:mx-0">
               <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-3">
                 Tailored Solutions For:
               </p>
@@ -72,7 +73,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onContactClick }) 
             </div>
 
             {/* Buttons (Exactly requested: Get a Quote and Contact Us) */}
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 relative z-20 pr-14 sm:pr-0">
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 relative z-20 max-w-[calc(100%-3.25rem)] sm:max-w-none mx-auto lg:mx-0">
               <button
                 id="hero-get-quote-btn"
                 onClick={() => onOpenQuoteModal()}
@@ -119,13 +120,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onContactClick }) 
                 
                 {/* Solar Image Top Half */}
                 <div className="relative h-48 sm:h-56 overflow-hidden">
-                  <img
+                  <OptimizedImage
                     src={IMAGES.solar}
                     alt="Solar System Rooftop Installation by Expert Technologies"
+                    preset="hero"
+                    loading="eager"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    wrapperClassName="w-full h-full"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent" />
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md border border-amber-500/40 text-amber-300 text-xs font-semibold">
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent pointer-events-none" />
+                  <div className="absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md border border-amber-500/40 text-amber-300 text-xs font-semibold z-10">
                     <Sun className="w-4 h-4 text-amber-400" />
                     <span>Solar Energy Solutions</span>
                   </div>
@@ -133,13 +137,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onContactClick }) 
 
                 {/* CCTV Image Bottom Half */}
                 <div className="relative h-48 sm:h-56 overflow-hidden border-t border-slate-700/60">
-                  <img
+                  <OptimizedImage
                     src={IMAGES.cctv}
                     alt="CCTV Camera Surveillance System by Expert Technologies"
+                    preset="hero"
+                    loading="eager"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    wrapperClassName="w-full h-full"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md border border-blue-500/40 text-blue-300 text-xs font-semibold">
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent pointer-events-none" />
+                  <div className="absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md border border-blue-500/40 text-blue-300 text-xs font-semibold z-10">
                     <ShieldCheck className="w-4 h-4 text-blue-400" />
                     <span>CCTV Surveillance</span>
                   </div>

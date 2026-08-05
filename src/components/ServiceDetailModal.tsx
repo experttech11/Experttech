@@ -3,6 +3,7 @@ import { X, CheckCircle2, ShieldCheck, Zap, DollarSign, Phone, MessageSquare, Ar
 import { ServiceItem } from '../types';
 import { COMPANY_INFO, IMAGES } from '../data/servicesData';
 import { trackConversion } from '../utils/analytics';
+import { OptimizedImage } from './OptimizedImage';
 
 interface ServiceDetailModalProps {
   service: ServiceItem | null;
@@ -69,13 +70,15 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
           {/* Detailed Image Banner & Description */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
             <div className="relative rounded-xl overflow-hidden group shadow-md border border-slate-200 aspect-video md:aspect-auto h-56">
-              <img
+              <OptimizedImage
                 src={serviceImg}
                 alt={`${service.title} in Chhatrapati Sambhajinagar by Expert Technologies`}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                preset="modalBanner"
                 loading="lazy"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                wrapperClassName="w-full h-full"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-4">
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-4 pointer-events-none z-10">
                 <span className="text-xs text-white font-medium bg-blue-600/90 px-3 py-1 rounded-full backdrop-blur-sm">
                   100% Guaranteed Installation
                 </span>

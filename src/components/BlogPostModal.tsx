@@ -3,6 +3,7 @@ import { X, Calendar, User, Clock, Share2, MessageSquare, ArrowRight, BookOpen, 
 import { BlogPost } from '../types';
 import { COMPANY_INFO } from '../data/servicesData';
 import { trackConversion } from '../utils/analytics';
+import { OptimizedImage } from './OptimizedImage';
 
 interface BlogPostModalProps {
   post: BlogPost | null;
@@ -77,11 +78,13 @@ export const BlogPostModal: React.FC<BlogPostModalProps> = ({
         {/* Article Body */}
         <div className="p-6 sm:p-8 max-h-[65vh] overflow-y-auto space-y-6">
           <div className="rounded-xl overflow-hidden shadow-sm border border-slate-200 aspect-video max-h-64">
-            <img
+            <OptimizedImage
               src={post.image}
               alt={post.title}
-              className="w-full h-full object-cover"
+              preset="modalBanner"
               loading="lazy"
+              className="w-full h-full object-cover"
+              wrapperClassName="w-full h-full"
             />
           </div>
 

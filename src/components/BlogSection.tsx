@@ -3,6 +3,7 @@ import { BookOpen, Calendar, Clock, ArrowRight, Search, Sparkles } from 'lucide-
 import { BLOG_POSTS } from '../data/servicesData';
 import { BlogPost } from '../types';
 import { BlogPostModal } from './BlogPostModal';
+import { OptimizedImage } from './OptimizedImage';
 
 interface BlogSectionProps {
   onOpenQuoteModal: (serviceTitle?: string) => void;
@@ -84,13 +85,15 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onOpenQuoteModal }) =>
               <div>
                 {/* Thumbnail */}
                 <div className="relative aspect-video overflow-hidden bg-slate-100">
-                  <img
+                  <OptimizedImage
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    preset="blogGrid"
                     loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    wrapperClassName="w-full h-full"
                   />
-                  <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-full border border-slate-700">
+                  <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-full border border-slate-700 z-10">
                     {post.category}
                   </div>
                 </div>

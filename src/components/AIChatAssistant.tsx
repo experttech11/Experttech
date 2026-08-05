@@ -6,10 +6,25 @@ import { AIChatMessage } from '../types';
 
 interface AIChatAssistantProps {
   onOpenQuoteModal: (serviceTitle?: string) => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
-export const AIChatAssistant: React.FC<AIChatAssistantProps> = ({ onOpenQuoteModal }) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const AIChatAssistant: React.FC<AIChatAssistantProps> = ({
+  onOpenQuoteModal,
+  isOpen: externalIsOpen,
+  onClose: externalOnClose,
+}) => {
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
+
+  const handleClose = () => {
+    if (externalOnClose) {
+      externalOnClose();
+    } else {
+      setInternalIsOpen(false);
+    }
+  };
   const [messages, setMessages] = useState<AIChatMessage[]>([
     {
       id: '1',
@@ -95,7 +110,7 @@ export const AIChatAssistant: React.FC<AIChatAssistantProps> = ({ onOpenQuoteMod
     }
 
     if (reply === 'Open Quote Form' || reply === 'Yes, Book Free Site Survey') {
-      setIsOpen(false);
+      handleClose();
       onOpenQuoteModal('Solar + CCTV Combo');
       return;
     }
@@ -105,23 +120,9 @@ export const AIChatAssistant: React.FC<AIChatAssistantProps> = ({ onOpenQuoteMod
 
   return (
     <>
-      {/* Floating Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-24 right-5 z-40 p-3.5 rounded-full bg-slate-900 text-white shadow-2xl hover:bg-slate-800 border border-slate-700 flex items-center gap-2 group transition-all duration-300 hover:scale-105"
-        aria-label="Open AI Solar & CCTV Chat Advisor"
-      >
-        <div className="relative">
-          <Bot className="w-6 h-6 text-blue-400 group-hover:rotate-12 transition-transform" />
-          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500" />
-        </div>
-        <span className="hidden sm:inline-block text-xs font-bold pr-1">AI Assistant</span>
-      </button>
-
       {/* Chat Window Popup */}
       {isOpen && (
-        <div className="fixed bottom-24 right-4 sm:right-6 z-50 w-[92vw] sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[500px] animate-fade-in">
+        <div className="fixed bottom-16 right-2 sm:bottom-20 sm:right-6 z-50 w-[94vw] max-w-[380px] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[460px] sm:h-[500px] animate-fade-in">
           {/* Chat Header */}
           <div className="bg-slate-900 text-white p-4 flex items-center justify-between border-b border-slate-800">
             <div className="flex items-center gap-3">
@@ -138,8 +139,8 @@ export const AIChatAssistant: React.FC<AIChatAssistantProps> = ({ onOpenQuoteMod
             </div>
 
             <button
-              onClick={() => setIsOpen(false)}
-              className="p-1.5 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+              onClick={handleClose}
+              className="p-1.5 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>

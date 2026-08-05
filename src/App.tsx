@@ -24,6 +24,7 @@ import { PWAInstallPrompt } from './components/PWAInstallPrompt';
 export default function App() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
+  const [isAIChatOpen, setIsAIChatOpen] = useState(false);
   const [modalDefaultService, setModalDefaultService] = useState('Solar Rooftop System');
   const [modalCustomMessage, setModalCustomMessage] = useState('');
 
@@ -125,10 +126,18 @@ export default function App() {
       />
 
       {/* AI Lead Qualification Chat Advisor */}
-      <AIChatAssistant onOpenQuoteModal={handleOpenQuoteModal} />
+      <AIChatAssistant
+        isOpen={isAIChatOpen}
+        onClose={() => setIsAIChatOpen(false)}
+        onOpenQuoteModal={handleOpenQuoteModal}
+      />
 
-      {/* Floating Action Bar (WhatsApp, Call, Callback) */}
-      <FloatingActions onOpenCallbackModal={() => setIsCallbackModalOpen(true)} />
+      {/* Floating Action Bar (WhatsApp, Call, Callback, AI Advisor) */}
+      <FloatingActions
+        onOpenCallbackModal={() => setIsCallbackModalOpen(true)}
+        onToggleAIChat={() => setIsAIChatOpen((prev) => !prev)}
+        isAIChatOpen={isAIChatOpen}
+      />
 
       {/* PWA Install Prompt Banner */}
       <PWAInstallPrompt />

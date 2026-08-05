@@ -76,7 +76,7 @@ export const PWAInstallPrompt: React.FC = () => {
   if (isInstalled || !showBanner || !deferredPrompt) return null;
 
   return (
-    <div className="fixed bottom-20 sm:bottom-6 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 bg-slate-900/95 backdrop-blur-md text-white p-4 sm:p-5 rounded-2xl border border-blue-500/40 shadow-2xl animate-fade-in">
+    <div className="fixed bottom-16 sm:bottom-6 left-3 right-16 sm:left-auto sm:right-6 sm:max-w-md z-50 bg-slate-900/95 backdrop-blur-md text-white p-3.5 sm:p-5 rounded-2xl border border-blue-500/40 shadow-2xl animate-fade-in">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-600 to-emerald-500 p-0.5 shrink-0 shadow-md">
