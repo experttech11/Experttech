@@ -1,4 +1,4 @@
-const CACHE_NAME = 'expert-tech-v2.0';
+const CACHE_NAME = 'expert-tech-v3.0';
 const OFFLINE_URL = '/offline.html';
 
 const PRECACHE_ASSETS = [
@@ -20,7 +20,9 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log('[SW] Pre-caching offline shell and assets');
-      return cache.addAll(PRECACHE_ASSETS);
+      return cache.addAll(PRECACHE_ASSETS).catch((err) => {
+        console.warn('[SW] Non-critical precache error ignored:', err);
+      });
     }).then(() => self.skipWaiting())
   );
 });
@@ -44,10 +46,9 @@ self.addEventListener('activate', (event) => {
 // 3. Fetch Event - Strategy routing
 self.addEventListener('fetch', (event) => {
   const { request } = event;
-  const url = new URL(request.url);
-
-  // Skip cross-origin chrome-extension or analytics if needed, but handle same-origin & CDN fonts
   if (request.method !== 'GET') return;
+
+  const url = new URL(request.url);
 
   // Strategy A: HTML / Navigation Requests -> Network First, fallback to Cache, fallback to offline.html
   if (request.mode === 'navigate' || (request.headers.get('accept') && request.headers.get('accept').includes('text/html'))) {
@@ -69,13 +70,16 @@ self.addEventListener('fetch', (event) => {
             return cachedResponse;
           }
           const offlineFallback = await caches.match(OFFLINE_URL);
-          return offlineFallback || new Response('Offline', { status: 503, headers: { 'Content-Type': 'text/html' } });
+          return offlineFallback || new Response('<html><body><h2>Offline</h2><p>Please check your internet connection.</p></body></html>', {
+            status: 503,
+            headers: { 'Content-Type': 'text/html' }
+          });
         })
     );
     return;
   }
 
-  // Strategy B: Static Assets (JS, CSS, Images, Fonts) -> Cache First, fallback to Network & update cache
+  // Strategy B: Static Assets (JS, CSS, Images, Fonts)
   const isStaticAsset = 
     url.origin === self.location.origin ||
     request.destination === 'script' ||
@@ -109,6 +113,9 @@ self.addEventListener('fetch', (event) => {
             });
           }
           return networkResponse;
+        }).catch((err) => {
+          console.warn('[SW] Network fetch failed for asset:', request.url, err);
+          return new Response('', { status: 404, statusText: 'Not Found' });
         });
       })
     );

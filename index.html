@@ -32,44 +32,71 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <!-- PWA Web App Meta Tags -->
-    <meta name="theme-color" content="#2563eb" />
+    <meta name="theme-color" content="#0f172a" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Expert" />
     <meta name="application-name" content="Expert Technologies" />
+
+    <!-- Global Asset Error Handler & Auto-Recovery for In-App WebViews (WhatsApp) -->
+    <script>
+      window.addEventListener('error', function (e) {
+        if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+          console.warn('[AppLoader] Asset loading error detected in webview:', e);
+          var key = 'app_reload_asset_err';
+          var lastReload = 0;
+          try { lastReload = Number(sessionStorage.getItem(key) || 0); } catch(err) {}
+          var now = Date.now();
+          if (now - lastReload > 10000) {
+            try { sessionStorage.setItem(key, String(now)); } catch(err) {}
+            if ('caches' in window) {
+              caches.keys().then(function(names) {
+                names.forEach(function(n) { caches.delete(n); });
+              });
+            }
+            window.location.reload();
+          }
+        }
+      }, true);
+    </script>
   </head>
-  <body>
-    <div id="root"></div>
+  <body style="margin: 0; background-color: #0f172a;">
+    <div id="root">
+      <!-- Branded Splash/Loading Shell to Prevent Blank White Screen in WhatsApp/WebViews -->
+      <div style="min-height: 100vh; background-color: #0f172a; color: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; text-align: center; padding: 24px; box-sizing: border-box;">
+        <div style="width: 64px; height: 64px; border-radius: 18px; background: linear-gradient(135deg, #2563eb, #10b981); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5);">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <h1 style="font-size: 22px; font-weight: 700; margin: 0 0 6px; color: #ffffff; letter-spacing: -0.02em;">Expert Technologies</h1>
+        <p style="font-size: 13px; color: #94a3b8; margin: 0 0 28px; max-width: 280px; line-height: 1.4;">Solar Rooftop &amp; HD CCTV Security Solutions</p>
+        <div style="display: inline-block; width: 28px; height: 28px; border: 3px solid rgba(255,255,255,0.15); border-radius: 50%; border-top-color: #3b82f6; animation: spin 0.8s linear infinite;"></div>
+        <style>
+          @keyframes spin { to { transform: rotate(360deg); } }
+        </style>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- PWA Service Worker Registration -->
+    <!-- Safe Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then((registration) => {
-              console.log('[PWA] ServiceWorker registered with scope:', registration.scope);
-
-              // Check for updates automatically
-              registration.onupdatefound = () => {
-                const installingWorker = registration.installing;
-                if (installingWorker) {
-                  installingWorker.onstatechange = () => {
-                    if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                      console.log('[PWA] New content available; automatically updated.');
-                    }
-                  };
-                }
-              };
-            })
-            .catch((error) => {
-              console.error('[PWA] ServiceWorker registration failed:', error);
-            });
+        window.addEventListener('load', function() {
+          try {
+            navigator.serviceWorker.register('/sw.js')
+              .then(function(registration) {
+                console.log('[PWA] ServiceWorker registered with scope:', registration.scope);
+              })
+              .catch(function(error) {
+                console.warn('[PWA] ServiceWorker registration warning:', error);
+              });
+          } catch(err) {
+            console.warn('[PWA] ServiceWorker register exception:', err);
+          }
         });
       }
     </script>
   </body>
 </html>
-
-

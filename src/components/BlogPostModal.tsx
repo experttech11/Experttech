@@ -21,15 +21,20 @@ export const BlogPostModal: React.FC<BlogPostModalProps> = ({
   if (!isOpen || !post) return null;
 
   const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: post.title,
-        text: post.summary,
-        url: window.location.href,
-      }).catch(() => {});
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert('Article link copied to clipboard!');
+    try {
+      if (typeof navigator !== 'undefined' && navigator.share) {
+        navigator.share({
+          title: post.title,
+          text: post.summary,
+          url: window.location.href,
+        }).catch(() => {});
+      } else if (typeof navigator !== 'undefined' && navigator.clipboard) {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          console.log('[Share] Link copied to clipboard');
+        }).catch(() => {});
+      }
+    } catch (e) {
+      console.warn('[Share] Error sharing article:', e);
     }
   };
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Download, X, Smartphone, CheckCircle2, ShieldCheck, Sparkles } from 'lucide-react';
+import { safeSessionStorage } from '../utils/safeStorage';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -28,7 +29,7 @@ export const PWAInstallPrompt: React.FC = () => {
       setDeferredPrompt(e as BeforeInstallPromptEvent);
 
       // Check if user dismissed banner recently
-      const hasDismissed = sessionStorage.getItem('pwa_prompt_dismissed');
+      const hasDismissed = safeSessionStorage.getItem('pwa_prompt_dismissed');
       if (!hasDismissed) {
         // Delay showing banner slightly for smooth initial page load
         setTimeout(() => setShowBanner(true), 2500);
@@ -70,7 +71,7 @@ export const PWAInstallPrompt: React.FC = () => {
 
   const handleDismiss = () => {
     setShowBanner(false);
-    sessionStorage.setItem('pwa_prompt_dismissed', 'true');
+    safeSessionStorage.setItem('pwa_prompt_dismissed', 'true');
   };
 
   if (isInstalled || !showBanner || !deferredPrompt) return null;
