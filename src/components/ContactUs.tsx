@@ -21,32 +21,56 @@ export const ContactUs: React.FC<ContactUsProps> = ({ initialService, initialMes
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<{ fullName?: string; phone?: string }>({});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const newErrors: { fullName?: string; phone?: string } = {};
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = 'Full Name is required';
+    }
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone Number is required';
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
     setLoading(true);
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbx1uf78YnraMK2q2OqoYnJyrAd0jA6MYfvnxXL9VyVa_vQxa76H4OQ7nExcuMBP3KLWIg/exec";
+    
+    const payload = {
+      fullName: formData.fullName,
+      phoneNumber: formData.phone,
+      propertyType: formData.propertyType,
+      service: formData.serviceRequired,
+      notes: formData.city ? `City: ${formData.city}. ${formData.message}` : formData.message
+    };
+
+    console.log('[ContactUs] Initiating form submission request to Google Apps Script...');
+    console.log('[ContactUs] Payload data:', payload);
 
     try {
-      await fetch(scriptURL, {
+      const response = await fetch(scriptURL, {
         method: "POST",
-        body: JSON.stringify({
-          fullName: formData.fullName,
-          phoneNumber: formData.phone,
-          propertyType: formData.propertyType,
-          service: formData.serviceRequired,
-          notes: formData.city ? `City: ${formData.city}. ${formData.message}` : formData.message
-        }),
+        mode: "no-cors",
+        body: JSON.stringify(payload),
         headers: { "Content-Type": "application/json" }
       });
 
+      console.log('[ContactUs] Fetch response received:', response);
       alert("Inquiry submitted successfully!");
       setSubmitted(true);
     } catch (error) {
-      console.error("Submission error:", error);
+      console.error("[ContactUs] Submission error encountered:", error);
       alert("Failed to submit inquiry. Please try our WhatsApp button instead.");
     } finally {
+      console.log('[ContactUs] Finalizing form submission lifecycle and resetting form.');
       setLoading(false);
       setFormData({
         fullName: '',
@@ -57,11 +81,13 @@ export const ContactUs: React.FC<ContactUsProps> = ({ initialService, initialMes
         city: '',
         message: '',
       });
+      setErrors({});
     }
   };
 
   const handleReset = () => {
     setSubmitted(false);
+    setErrors({});
     setFormData({
       fullName: '',
       phone: '',
@@ -257,12 +283,24 @@ export const ContactUs: React.FC<ContactUsProps> = ({ initialService, initialMes
                     </label>
                     <input
                       type="text"
-                      required
                       placeholder="e.g. Rahul Sharma"
                       value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                      onChange={(e) => {
+                        setFormData({ ...formData, fullName: e.target.value });
+                        if (errors.fullName) setErrors((prev) => ({ ...prev, fullName: undefined }));
+                      }}
+                      className={`w-full px-4 py-2.5 rounded-xl border bg-white text-slate-900 text-sm outline-none transition-all ${
+                        errors.fullName
+                          ? 'border-red-500 focus:ring-2 focus:ring-red-500/30'
+                          : 'border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+                      }`}
                     />
+                    {errors.fullName && (
+                      <p className="text-xs text-red-500 mt-1 flex items-center gap-1 font-medium">
+                        <AlertCircle className="w-3.5 h-3.5" />
+                        <span>{errors.fullName}</span>
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -271,12 +309,24 @@ export const ContactUs: React.FC<ContactUsProps> = ({ initialService, initialMes
                     </label>
                     <input
                       type="tel"
-                      required
                       placeholder="e.g. +91 95954 43387"
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                      onChange={(e) => {
+                        setFormData({ ...formData, phone: e.target.value });
+                        if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }));
+                      }}
+                      className={`w-full px-4 py-2.5 rounded-xl border bg-white text-slate-900 text-sm outline-none transition-all ${
+                        errors.phone
+                          ? 'border-red-500 focus:ring-2 focus:ring-red-500/30'
+                          : 'border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+                      }`}
                     />
+                    {errors.phone && (
+                      <p className="text-xs text-red-500 mt-1 flex items-center gap-1 font-medium">
+                        <AlertCircle className="w-3.5 h-3.5" />
+                        <span>{errors.phone}</span>
+                      </p>
+                    )}
                   </div>
                 </div>
 

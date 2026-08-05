@@ -46,6 +46,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
     try {
       await fetch(scriptURL, {
         method: "POST",
+        mode: "no-cors",
         body: JSON.stringify({
           fullName,
           phoneNumber: phone,
