@@ -56,12 +56,18 @@ export const ContactUs: React.FC<ContactUsProps> = ({ initialService, initialMes
     console.log('[ContactUs] Payload data:', payload);
 
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 12000);
+
       const response = await fetch(scriptURL, {
         method: "POST",
         mode: "no-cors",
+        signal: controller.signal,
         body: JSON.stringify(payload),
         headers: { "Content-Type": "application/json" }
       });
+
+      clearTimeout(timeoutId);
 
       console.log('[ContactUs] Fetch response received:', response);
       alert("Inquiry submitted successfully!");

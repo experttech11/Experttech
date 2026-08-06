@@ -1,4 +1,4 @@
-const CACHE_NAME = 'expert-tech-v3.0';
+const CACHE_NAME = 'expert-tech-v4.0';
 const OFFLINE_URL = '/offline.html';
 
 const PRECACHE_ASSETS = [
@@ -79,20 +79,48 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Strategy B: Static Assets (JS, CSS, Images, Fonts)
-  const isStaticAsset = 
-    url.origin === self.location.origin ||
+  // Strategy B: JS / CSS Bundles -> Network First, fallback to Cache
+  const isScriptOrStyle =
     request.destination === 'script' ||
     request.destination === 'style' ||
+    url.pathname.endsWith('.js') ||
+    url.pathname.endsWith('.css') ||
+    url.pathname.includes('/assets/');
+
+  if (isScriptOrStyle) {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(request, responseToCache);
+            });
+          }
+          return networkResponse;
+        })
+        .catch(async () => {
+          const cachedResponse = await caches.match(request);
+          if (cachedResponse) return cachedResponse;
+          return new Response('/* Offline fallback for scripts */', {
+            status: 200,
+            headers: { 'Content-Type': 'application/javascript' }
+          });
+        })
+    );
+    return;
+  }
+
+  // Strategy C: Media & Font Static Assets (Images, Icons, Fonts) -> Cache First / Stale-While-Revalidate
+  const isMediaAsset = 
     request.destination === 'image' ||
     request.destination === 'font' ||
-    url.pathname.match(/\.(js|css|png|jpg|jpeg|svg|gif|webp|woff|woff2|ttf|eot|ico)$/i);
+    url.pathname.match(/\.(png|jpg|jpeg|svg|gif|webp|woff|woff2|ttf|eot|ico)$/i);
 
-  if (isStaticAsset) {
+  if (isMediaAsset) {
     event.respondWith(
       caches.match(request).then((cachedResponse) => {
         if (cachedResponse) {
-          // Serve from cache and update cache in background (Stale-while-revalidate for assets)
           fetch(request).then((networkResponse) => {
             if (networkResponse && networkResponse.status === 200) {
               caches.open(CACHE_NAME).then((cache) => {
@@ -104,7 +132,6 @@ self.addEventListener('fetch', (event) => {
           return cachedResponse;
         }
 
-        // Fetch from network if not in cache
         return fetch(request).then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             const responseToCache = networkResponse.clone();

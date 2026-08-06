@@ -44,9 +44,13 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
     const scriptURL = "https://script.google.com/macros/s/AKfycbx1uf78YnraMK2q2OqoYnJyrAd0jA6MYfvnxXL9VyVa_vQxa76H4OQ7nExcuMBP3KLWIg/exec";
 
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 12000);
+
       await fetch(scriptURL, {
         method: "POST",
         mode: "no-cors",
+        signal: controller.signal,
         body: JSON.stringify({
           fullName,
           phoneNumber: phone,
@@ -56,6 +60,8 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
         }),
         headers: { "Content-Type": "application/json" }
       });
+
+      clearTimeout(timeoutId);
       alert("Inquiry submitted successfully!");
       setSubmitted(true);
     } catch (error) {
