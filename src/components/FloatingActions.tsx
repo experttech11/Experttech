@@ -1,16 +1,16 @@
 import React from 'react';
-import { MessageSquare, Phone, Clock, ArrowUp } from 'lucide-react';
+import { MessageSquare, Phone, FileText, ArrowUp } from 'lucide-react';
 import { COMPANY_INFO } from '../data/servicesData';
 import { trackConversion } from '../utils/analytics';
 
 interface FloatingActionsProps {
-  onOpenCallbackModal?: () => void;
+  onOpenQuoteModal?: () => void;
   onToggleAIChat?: () => void;
   isAIChatOpen?: boolean;
 }
 
 export const FloatingActions: React.FC<FloatingActionsProps> = ({
-  onOpenCallbackModal,
+  onOpenQuoteModal,
 }) => {
   const handleWhatsAppClick = () => {
     trackConversion.clickWhatsApp('floating_action_btn');
@@ -26,15 +26,15 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
 
   return (
     <div className="fixed bottom-3 right-2.5 sm:bottom-6 sm:right-6 z-40 flex flex-col gap-2 items-end pointer-events-auto">
-      {/* Callback Button (Desktop) */}
-      {onOpenCallbackModal && (
+      {/* Quote Form Button (Desktop) */}
+      {onOpenQuoteModal && (
         <button
-          onClick={onOpenCallbackModal}
+          onClick={onOpenQuoteModal}
           className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-xl border border-slate-700 transition-all hover:scale-105 active:scale-95 cursor-pointer"
-          title="Request a 15-Min Callback"
+          title="Request a Free Quote"
         >
-          <Clock className="w-4 h-4 text-amber-400 shrink-0" />
-          <span>Request Callback</span>
+          <FileText className="w-4 h-4 text-blue-400 shrink-0" />
+          <span>Get Quote</span>
         </button>
       )}
 
@@ -74,3 +74,4 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
     </div>
   );
 };
+

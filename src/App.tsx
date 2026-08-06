@@ -16,14 +16,12 @@ import { FAQSection } from './components/FAQSection';
 import { ContactUs } from './components/ContactUs';
 import { Footer } from './components/Footer';
 import { QuoteModal } from './components/QuoteModal';
-import { CallbackModal } from './components/CallbackModal';
 import { FloatingActions } from './components/FloatingActions';
 import { PWAInstallPrompt } from './components/PWAInstallPrompt';
 
 export default function App() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
-  const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
-  const [modalDefaultService, setModalDefaultService] = useState('Solar Rooftop System');
+  const [modalDefaultService, setModalDefaultService] = useState('Solar System Installation');
   const [modalCustomMessage, setModalCustomMessage] = useState('');
 
   const handleOpenQuoteModal = (serviceTitle?: string) => {
@@ -117,15 +115,9 @@ export default function App() {
         customMessage={modalCustomMessage}
       />
 
-      {/* Instant 15-Min Callback Request Modal */}
-      <CallbackModal
-        isOpen={isCallbackModalOpen}
-        onClose={() => setIsCallbackModalOpen(false)}
-      />
-
-      {/* Floating Action Bar (WhatsApp, Call, Callback) */}
+      {/* Floating Action Bar (WhatsApp, Call, Quote) */}
       <FloatingActions
-        onOpenCallbackModal={() => setIsCallbackModalOpen(true)}
+        onOpenQuoteModal={() => handleOpenQuoteModal()}
       />
 
       {/* PWA Install Prompt Banner */}
@@ -133,3 +125,4 @@ export default function App() {
     </div>
   );
 }
+

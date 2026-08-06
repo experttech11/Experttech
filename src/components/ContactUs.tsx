@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Phone, Mail, MapPin, MessageSquare, Clock, Send, CheckCircle2, AlertCircle, Facebook, Instagram } from 'lucide-react';
+import React from 'react';
+import { Phone, Mail, MapPin, MessageSquare, Clock, Facebook, Instagram } from 'lucide-react';
 import { COMPANY_INFO } from '../data/servicesData';
-import { QuoteFormData } from '../types';
+import { InquiryForm } from './InquiryForm';
 
 interface ContactUsProps {
   initialService?: string;
@@ -9,102 +9,6 @@ interface ContactUsProps {
 }
 
 export const ContactUs: React.FC<ContactUsProps> = ({ initialService, initialMessage }) => {
-  const [formData, setFormData] = useState<QuoteFormData>({
-    fullName: '',
-    phone: '',
-    email: '',
-    propertyType: 'Home',
-    serviceRequired: (initialService as any) || 'Solar System Installation',
-    city: '',
-    message: initialMessage || '',
-  });
-
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState<{ fullName?: string; phone?: string }>({});
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const newErrors: { fullName?: string; phone?: string } = {};
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = 'Full Name is required';
-    }
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone Number is required';
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    setErrors({});
-    setLoading(true);
-
-    const scriptURL = "https://script.google.com/macros/s/AKfycbx1uf78YnraMK2q2OqoYnJyrAd0jA6MYfvnxXL9VyVa_vQxa76H4OQ7nExcuMBP3KLWIg/exec";
-    
-    const payload = {
-      fullName: formData.fullName,
-      phoneNumber: formData.phone,
-      propertyType: formData.propertyType,
-      service: formData.serviceRequired,
-      notes: formData.city ? `City: ${formData.city}. ${formData.message}` : formData.message
-    };
-
-    console.log('[ContactUs] Initiating form submission request to Google Apps Script...');
-    console.log('[ContactUs] Payload data:', payload);
-
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 12000);
-
-      const response = await fetch(scriptURL, {
-        method: "POST",
-        mode: "no-cors",
-        signal: controller.signal,
-        body: JSON.stringify(payload),
-        headers: { "Content-Type": "application/json" }
-      });
-
-      clearTimeout(timeoutId);
-
-      console.log('[ContactUs] Fetch response received:', response);
-      alert("Inquiry submitted successfully!");
-      setSubmitted(true);
-    } catch (error) {
-      console.error("[ContactUs] Submission error encountered:", error);
-      alert("Failed to submit inquiry. Please try our WhatsApp button instead.");
-    } finally {
-      console.log('[ContactUs] Finalizing form submission lifecycle and resetting form.');
-      setLoading(false);
-      setFormData({
-        fullName: '',
-        phone: '',
-        email: '',
-        propertyType: 'Home',
-        serviceRequired: 'Solar System Installation',
-        city: '',
-        message: '',
-      });
-      setErrors({});
-    }
-  };
-
-  const handleReset = () => {
-    setSubmitted(false);
-    setErrors({});
-    setFormData({
-      fullName: '',
-      phone: '',
-      email: '',
-      propertyType: 'Home',
-      serviceRequired: 'Solar System Installation',
-      city: '',
-      message: '',
-    });
-  };
-
   return (
     <section id="contact" className="py-16 lg:py-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -125,7 +29,7 @@ export const ContactUs: React.FC<ContactUsProps> = ({ initialService, initialMes
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* Left Column: Direct Contact Info (Phone, WhatsApp, Email, Address as requested) */}
+          {/* Left Column: Direct Contact Info */}
           <div className="lg:col-span-5 space-y-6">
             
             <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 space-y-8 shadow-xl relative overflow-hidden">
@@ -245,194 +149,14 @@ export const ContactUs: React.FC<ContactUsProps> = ({ initialService, initialMes
 
           </div>
 
-          {/* Right Column: Contact Form (Requested Contact Form) */}
+          {/* Right Column: Unified Contact Form */}
           <div className="lg:col-span-7 bg-slate-50 border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm">
-            
-            {submitted ? (
-              <div className="text-center py-12 space-y-4 animate-fadeIn">
-                <div className="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-10 h-10" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900">Thank You for Your Inquiry!</h3>
-                <p className="text-sm text-slate-600 max-w-md mx-auto">
-                  We have received your request. An Expert Technologies specialist will call you back within 2 business hours.
-                </p>
-                <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
-                  <a
-                    href={`https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent('Hello Expert Technologies, I submitted a form inquiry on your website.')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-6 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold text-sm shadow-md inline-flex items-center justify-center gap-2"
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                    <span>Follow Up on WhatsApp</span>
-                  </a>
-                  <button
-                    onClick={handleReset}
-                    className="px-6 py-3 rounded-xl border border-slate-300 text-slate-700 font-medium text-sm hover:bg-white transition-colors"
-                  >
-                    Send Another Message
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <h3 className="text-2xl font-bold text-slate-900">Request a Free Quote / Site Visit</h3>
-                  <p className="text-xs text-slate-500 mt-1">Fill in your details below and our team will get back to you with custom pricing.</p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Rahul Sharma"
-                      value={formData.fullName}
-                      onChange={(e) => {
-                        setFormData({ ...formData, fullName: e.target.value });
-                        if (errors.fullName) setErrors((prev) => ({ ...prev, fullName: undefined }));
-                      }}
-                      className={`w-full px-4 py-2.5 rounded-xl border bg-white text-slate-900 text-sm outline-none transition-all ${
-                        errors.fullName
-                          ? 'border-red-500 focus:ring-2 focus:ring-red-500/30'
-                          : 'border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                      }`}
-                    />
-                    {errors.fullName && (
-                      <p className="text-xs text-red-500 mt-1 flex items-center gap-1 font-medium">
-                        <AlertCircle className="w-3.5 h-3.5" />
-                        <span>{errors.fullName}</span>
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                      Phone Number *
-                    </label>
-                    <input
-                      type="tel"
-                      placeholder="e.g. +91 95954 43387"
-                      value={formData.phone}
-                      onChange={(e) => {
-                        setFormData({ ...formData, phone: e.target.value });
-                        if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }));
-                      }}
-                      className={`w-full px-4 py-2.5 rounded-xl border bg-white text-slate-900 text-sm outline-none transition-all ${
-                        errors.phone
-                          ? 'border-red-500 focus:ring-2 focus:ring-red-500/30'
-                          : 'border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                      }`}
-                    />
-                    {errors.phone && (
-                      <p className="text-xs text-red-500 mt-1 flex items-center gap-1 font-medium">
-                        <AlertCircle className="w-3.5 h-3.5" />
-                        <span>{errors.phone}</span>
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      placeholder="e.g. rahul@example.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                      City / Location *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. City Center, Sector 5"
-                      value={formData.city}
-                      onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                      Property Type *
-                    </label>
-                    <select
-                      value={formData.propertyType}
-                      onChange={(e) => setFormData({ ...formData, propertyType: e.target.value as any })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all cursor-pointer"
-                    >
-                      <option value="Home">Home / Villa</option>
-                      <option value="Shop">Shop / Retail Store</option>
-                      <option value="Office">Office / Commercial Complex</option>
-                      <option value="School">School / Educational Campus</option>
-                      <option value="Industry">Factory / Industrial Mill</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                      Service Required *
-                    </label>
-                    <select
-                      value={formData.serviceRequired}
-                      onChange={(e) => setFormData({ ...formData, serviceRequired: e.target.value as any })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all cursor-pointer"
-                    >
-                      <option value="Solar System Installation">Solar System Installation</option>
-                      <option value="On-Grid & Off-Grid Solar">On-Grid &amp; Off-Grid Solar Systems</option>
-                      <option value="CCTV Camera Installation">CCTV Camera Installation</option>
-                      <option value="Security Surveillance Solutions">Security Surveillance Solutions</option>
-                      <option value="Solar + CCTV Combo">Solar + CCTV Combo Package</option>
-                      <option value="Maintenance & Support">Maintenance &amp; Support / AMC</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                    Your Requirements / Message
-                  </label>
-                  <textarea
-                    rows={4}
-                    placeholder="Describe your requirement, e.g. rooftop area available, required solar kW capacity, or number of cameras needed..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-y"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full py-3.5 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
-                >
-                  {loading ? (
-                    <span>Submitting Request...</span>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4" />
-                      <span>Submit Quote Request</span>
-                    </>
-                  )}
-                </button>
-
-              </form>
-            )}
-
+            <InquiryForm
+              initialService={initialService}
+              initialNotes={initialMessage}
+              title="Request a Free Quote / Site Visit"
+              subtitle="Fill in your details below and our team will get back to you with custom pricing."
+            />
           </div>
 
         </div>
@@ -441,3 +165,4 @@ export const ContactUs: React.FC<ContactUsProps> = ({ initialService, initialMes
     </section>
   );
 };
+
