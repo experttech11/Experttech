@@ -47,16 +47,17 @@ export const BlogPostModal: React.FC<BlogPostModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto animate-fade-in">
       <div className="relative w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100 my-8">
-        {/* Header */}
-        <div className="relative bg-slate-900 text-white p-6 sm:p-8">
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
-            aria-label="Close article reader"
-          >
-            <X className="w-5 h-5" />
-          </button>
+        {/* Close Button - Sticky/Sticky-Floating top right so it remains accessible on mobile scroll */}
+        <button
+          onClick={onClose}
+          className="fixed sm:absolute top-4 right-4 z-50 p-2.5 rounded-full bg-slate-900/90 hover:bg-slate-800 text-white shadow-lg border border-slate-700/80 backdrop-blur-md transition-all active:scale-95 cursor-pointer"
+          aria-label="Close article reader"
+        >
+          <X className="w-5 h-5" />
+        </button>
 
+        {/* Header */}
+        <div className="relative bg-slate-900 text-white p-6 sm:p-8 pr-14 sm:pr-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-semibold uppercase tracking-wider mb-3">
             <BookOpen className="w-3.5 h-3.5 text-blue-400" />
             <span>{post.category}</span>
