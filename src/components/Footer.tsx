@@ -154,8 +154,6 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <a href="/sitemap.xml" target="_blank" className="hover:text-slate-300">Sitemap</a>
-            <a href="/robots.txt" target="_blank" className="hover:text-slate-300">Robots.txt</a>
             <button
               id="footer-back-to-top"
               onClick={scrollToTop}
